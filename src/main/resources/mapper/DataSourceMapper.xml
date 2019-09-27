@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.charming.hello.dao.DataSourceDao">
+    <resultMap id="BaseResultMap" type="com.charming.hello.test.SysDataSource">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="driver_class" property="DriverClass"/>
+        <result column="url" property="url"/>
+        <result column="ip" property="ip"/>
+        <result column="port" property="port"/>
+        <result column="database" property="database.id"/>
+        <result column="user_name" property="username"/>
+        <result column="password" property="password"/>
+        <result column="schema" property="schema"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    id, `name`,driver_class, url,port,database,user_name,password,schema,
+    creator, create_time,gen_table_id, modifier,modify_time
+  </sql>
+
+
+    <select id="query" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_data_source
+        <where>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_data_source
+        where id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+    delete from sys_data_source
+    where id = #{id}
+  </delete>
+
+
+
+
+</mapper>
